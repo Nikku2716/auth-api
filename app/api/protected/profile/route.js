@@ -1,3 +1,5 @@
+import supabase from '../../../../lib/supabaseClient';
+
 export async function GET(request) {
   const authHeader = request.headers.get('authorization');
 
@@ -7,6 +9,15 @@ export async function GET(request) {
 
   const token = authHeader.split(' ')[1];
 
-  // Stage 3 will actually verify this token with Supabase — for now, just extracting it
-  return Response.json({ message: "Token received, not yet verified", token }, { status: 200 });
+  const { data, error } = await supabase.auth.getUser(token);
+
+  if (error || !data.user) {
+    return Response.json({ error: "Invalid or expired token" }, { status: 401 });
+  }
+
+  return Response.json({
+    id: data.user.id,
+    email: data.user.email,
+    created_at: data.user.created_at
+  }, { status: 200 });
 }
