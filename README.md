@@ -14,7 +14,7 @@ A secure API built with **Next.js** and **Supabase Auth**, handling user sign up
 
 **1. Clone the repo and install dependencies:**
 ```bash
-git clone https://github.com/Nikku2716/auth-api
+git clone https://github.com/sh4dowbl4d3/auth-api
 cd auth-api
 npm install
 ```
